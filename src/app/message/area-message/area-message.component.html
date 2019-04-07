@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row" *ngFor="let item of items">
+    <div *ngIf="item%2==0; then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock>
+      <div class="card-panel large teal col s6 offset-s6">
+        <span class="white-text">
+          I am Flow Text My message with big text and something sljfliasjdgl
+        </span>
+      </div>
+    </ng-template>
+    <ng-template #elseBlock>
+      <div class="card-panel orange darken-4 col s6">
+        <span class="white-text">
+          I am Flow Text My message with big text and something sljfliasjdgl
+        </span>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="row">
+    <form class="col s12 white" #SendMessage="ngForm" (ngSubmit)="OnSubmit(SendMessage)">
+      <div class="row">
+        <div class="input-field col s9">
+          <input type="text" name="Message" required>
+        </div>
+        <div class="input-field col s3">
+          <button [disabled]="!SendMessage.valid" class="btn-small btn-submit" type="submit">
+            Send
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>

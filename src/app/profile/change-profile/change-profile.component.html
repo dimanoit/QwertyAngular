@@ -1,0 +1,55 @@
+<form class="col s12 white" #changeProfileForm="ngForm" (ngSubmit)="OnSubmit(changeProfileForm)">
+  <input type="hidden" name="UserName" #UserName = "ngModel"  [(ngModel)]="profile.UserName">
+  <div class="row">
+    <div class="input-field col s6 ">
+      <input class="validate red lighten-4" type="text" name="Name" #ProfileName="ngModel" [(ngModel)]="profile.Name" required>
+      <label data-error="Required field!">Name</label>
+    </div>
+    <div class="input-field col s6 ">
+      <input class="validate red lighten-4" type="text" name="Surname" #Surname="ngModel" [(ngModel)]="profile.Surname" required
+        minlength="3">
+      <label data-error="Required field!">Surname</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s6">
+      <input type="text" class="red lighten-4" name="Country" #Country="ngModel" [(ngModel)]="profile.Country">
+      <label>Country</label>
+    </div>
+    <div class="input-field col s6">
+      <input type="text" class="red lighten-4" name="City" #City="ngModel" [(ngModel)]="profile.City">
+      <label>City</label>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="input-field col s6 ">
+      <input type="email" class="validate red lighten-4" name="Email" #Email="ngModel" [(ngModel)]="profile.Email">
+      <label>Email</label>
+    </div>
+    <div class="input-field col s6">
+        <input type="email" class="validate red lighten-4" name="Phone" #Email="ngModel" [(ngModel)]="profile.Phone">
+        <label>Email</label>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12 red lighten-4">
+      <textarea id="textarea1" class="materialize-textarea" name="About" #About="ngModel"
+        [(ngModel)]="profile.AboutUrl"></textarea>
+      <label>About</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s6">
+      <button [disabled]="!changeProfileForm.valid" class="btn-large btn-submit" type="submit">
+        Change Profile
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+
+</form>

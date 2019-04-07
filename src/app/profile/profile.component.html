@@ -1,0 +1,88 @@
+<!-- Change profile info(Modals) -->
+<div id="modal1" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]"
+  [materializeActions]="modalActions">
+  <div class="modal-content">
+    <h4>Profile change</h4>
+    <app-change-profile></app-change-profile>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-close waves-effect red lighten-1">Cancel changes
+      <i class="tiny material-icons">arrow_downward</i>
+    </a>
+  </div>
+</div>
+<!-- Upload photo(Modals) -->
+<div id="modal2" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]"
+  [materializeActions]="uploadPhotoModalActions">
+  <div class="modal-content">
+    <form #imageForm=ngForm (ngSubmit)="OnSubmit(Image)">
+      <img [src]="imageUrl" style="width:250px;height:200px">
+      <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files)">
+      <button type="submit" class="btn-large btn-submit"
+        [disabled]="Image.value=='' || !imageForm.valid">Submit</button>
+    </form>
+  </div>
+</div>
+<!-- Profile html-->
+<div class="container">
+  <div class="row">
+    <div class="col s6">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-image large">
+              <img [src]="sanitize(setImageProfile())">
+              <a class="btn-floating halfway-fab waves-effect waves-light red textCenter"
+                (click)="UploadPhoto()">Edit</a>
+            </div>
+            <div class="card-content">
+              <p>
+                {{profile.AboutUrl}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col s6">
+      <div class="row">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>{{profile.Name}}</th>
+            </tr>
+          </thead>
+          <thead>
+            <tr>
+              <th>Surname</th>
+              <th>{{profile.Surname}}</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Email</td>
+              <td>{{profile.Email}}</td>
+            </tr>
+            <tr>
+              <td>Phone</td>
+              <td>{{profile.Phone}}</td>
+            </tr>
+            <tr>
+              <td>City</td>
+              <td>{{profile.City}}</td>
+            </tr>
+            <tr>
+              <td>Country</td>
+              <td>{{profile.Country}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <a class="waves-effect red lighten-1 btn" (click)="ChangeUser()">Change profile information</a>
+      </div>
+    </div>
+  </div>
+</div>
