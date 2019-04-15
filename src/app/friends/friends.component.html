@@ -1,0 +1,105 @@
+<div class="row">
+  <form class="col s3 white" #FindUserForm="ngForm" (ngSubmit)="OnSubmit(FindUserForm)">
+    <div class="row">
+      <div class="input-field col s10">
+        <input type="text" name="Name" #Name ngModel>
+        <label class="active">Name</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s10">
+        <input type="text" name="Surname" #Surname ngModel>
+        <label class="active">Surname</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s10">
+        <input type="text" name="Country" #Country ngModel>
+        <label class="active">Country</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s10">
+        <input type="text" name="City" #City ngModel>
+        <label class="active">City</label>
+      </div>
+    </div>
+    <button class="btn-large">
+      <i class="material-icons right">find_replace</i>Find
+    </button>
+  </form>
+  <div class="col s9">
+    <ul class="tabs">
+      <li class="tab col s4"><a class="active" href="#test1">All Users</a></li>
+      <li class="tab col s4"><a href="#test2" (click)="GetFriends()">My Friends</a></li>
+      <li class="tab col s4"><a href="#test3" (click)="GetRequest()">Friends Request</a></li>
+    </ul>
+    <div id="test1" class="col s12">
+      <div class="col s12">
+        <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+          <div *cdkVirtualFor="let item of CurrentUsers" class="example-item card red darken-1">
+            <div class="row">
+              <div class="col s2">
+                <div class="container">
+                  <img [src]="sanitize(setImageProfile(item.ImageUrl))" style="width:75px;height:75px">
+                </div>
+              </div>
+              <div class="col s10">
+                <p class="white-text">{{item.Name}} {{item.Surname}} </p>
+                <a class="btn" (click)="SendRequset(item.Id)">Add to Friends</a>
+              </div>
+            </div>
+          </div>
+        </cdk-virtual-scroll-viewport>
+      </div>
+    </div>
+    <div id="test2" class="col s12">
+        <div class="col s12">
+            <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+              <div *cdkVirtualFor="let friend of Friends" class="example-item card red darken-1">
+                <div class="row">
+                  <div class="col s2">
+                    <div class="container">
+                      <img [src]="sanitize(setImageProfile(friend.ImageUrl))" style="width:75px;height:75px">
+                    </div>
+                  </div>
+                  <div class="col s10">
+                    <p class="white-text">{{friend.Name}} {{friend.Surname}}</p>
+                    <a class="btn" routerLink="/messages" routerLinkActive="active">Go to dialog</a>
+                  </div>
+                </div>
+              </div>
+            </cdk-virtual-scroll-viewport>
+          </div>
+    </div>
+    <div id="test3" class="col s12">
+      <div class="col s12">
+        <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+          <div *cdkVirtualFor="let profile of RequestsProfiles" class="example-item card red darken-1">
+            <div class="row">
+              <div class="col s2">
+                <div class="container">
+                  <img [src]="sanitize(setImageProfile(profile.ImageUrl))" style="width:75px;height:75px">
+                </div>
+              </div>
+              <div class="col s10">
+                <p class="white-text">{{profile.Name}} {{profile.Surname}}</p>
+                <div *ngIf="profile.Request.SenderUserId != UserId; then thenBlock else elseBlock"></div>
+                <ng-template #thenBlock>
+                  <a class="btn" (click)="AcceptFriend(profile.Request.SenderUserId,profile.Request.RecipientUserId)">
+                    Add to friends and say hi</a>
+                </ng-template>
+                <ng-template #elseBlock>
+                  <div class="card-panel orange darken-4 col s6">
+                    <span class="white-text">Request was sent
+                    </span>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </cdk-virtual-scroll-viewport>
+      </div>
+    </div>
+  </div>
+</div>

@@ -21,8 +21,15 @@ import { ChangeProfileComponent } from './profile/change-profile/change-profile.
 import 'materialize-css';
 import { MaterializeModule } from "angular2-materialize";
 import { MessageComponent } from './message/message.component';
-import { AreaMessageComponent } from './message/area-message/area-message.component';
-import { DialogsComponent } from './message/dialogs/dialogs.component';
+import { SmsService } from 'src/app/message/sms/sms.service'
+import {ScrollDispatchModule} from '@angular/cdk/scrolling';
+import { FriendsComponent } from './friends/friends.component';
+import { FriendshipRequestServiceService } from './friends/friendshipRequestService/friendship-request-service.service';
+import { FriendService } from './friends/friendService/friend.service';
+import { AdminComponent } from './admin/admin.component';
+import { AdminService } from './admin/adminService/admin.service';
+import { BlockUserComponent } from './block-user/block-user.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,8 +40,9 @@ import { DialogsComponent } from './message/dialogs/dialogs.component';
     ProfileComponent,
     ChangeProfileComponent,
     MessageComponent,
-    DialogsComponent,
-    AreaMessageComponent
+    FriendsComponent,
+    AdminComponent,
+    BlockUserComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +50,7 @@ import { DialogsComponent } from './message/dialogs/dialogs.component';
     FormsModule,
     ReactiveFormsModule,
     MaterializeModule,
+    ScrollDispatchModule,
     HttpClientModule,
     ToastrModule.forRoot({
       timeOut : 1500,
@@ -51,7 +60,8 @@ import { DialogsComponent } from './message/dialogs/dialogs.component';
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [UserService,HomeGuard,ProfileService],
+  providers: [UserService,HomeGuard,ProfileService,SmsService,
+    FriendshipRequestServiceService,FriendService,AdminService],
   bootstrap: [AppComponent],
   entryComponents: [ChangeProfileComponent]
 })

@@ -1,16 +1,12 @@
-<!-- Dropdown Structure -->
-<ul id="dropdown1" class="dropdown-content">
-  <li><a href="#!">one</a></li>
-  <li><a href="#!">two</a></li>
-  <li class="divider"></li>
-  <li><a href="#!">three</a></li>
-</ul>
 <nav>
   <div class="nav-wrapper">
     <a routerLink='/profile' class="brand-logo">Profile</a>
     <ul class="right hide-on-med-and-down">
-      <li><a routerLink='/messages' routerLinkActive='active'>Messages</a></li>
-      <li><a routerLink='/singup' routerLinkActive='active'>Friends</a></li>
+        <li  *ngIf="userService.roleMatch(['admin'])">
+            <a routerLink="/adminPanel">Admin Panel</a>
+          </li>
+      <li><a routerLink="/messages" routerLinkActive="active">Messages</a></li>
+      <li><a href="/friends">Friends</a></li>
       <li><button  type="button" class="btn btn-outline-danger" (click) = "LogOut()">Log out</button></li>
     </ul>
   </div>

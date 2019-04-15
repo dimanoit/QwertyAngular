@@ -6,7 +6,7 @@
     <app-change-profile></app-change-profile>
   </div>
   <div class="modal-footer">
-    <a class="modal-close waves-effect red lighten-1">Cancel changes
+    <a class="modal-close  waves-effect red lighten-1 btn" (click)="GetCurrentUser()">Close
       <i class="tiny material-icons">arrow_downward</i>
     </a>
   </div>
@@ -20,6 +20,7 @@
       <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files)">
       <button type="submit" class="btn-large btn-submit"
         [disabled]="Image.value=='' || !imageForm.valid">Submit</button>
+      <a class="modal-close btn" >Close   </a>
     </form>
   </div>
 </div>
@@ -30,8 +31,8 @@
       <div class="row">
         <div class="col">
           <div class="card">
-            <div class="card-image large">
-              <img [src]="sanitize(setImageProfile())">
+            <div class="card-image">
+              <img [src]="sanitize(setImageProfile())" >
               <a class="btn-floating halfway-fab waves-effect waves-light red textCenter"
                 (click)="UploadPhoto()">Edit</a>
             </div>

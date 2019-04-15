@@ -6,11 +6,13 @@ import { SingInComponent } from './user/sing-in/sing-in.component';
 import { HomeGuard } from './home.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { MessageComponent } from './message/message.component';
-import { DialogsComponent } from './message/dialogs/dialogs.component';
-import { AreaMessageComponent } from './message/area-message/area-message.component';
+import { FriendsComponent } from './friends/friends.component';
+import { AdminComponent } from './admin/admin.component';
+import { BlockUserComponent } from './block-user/block-user.component';
 
 export const appRoutes: Routes = [
     { path: "home", component: HomeComponent, canActivate: [HomeGuard] },
+    { path: "blocked", component: BlockUserComponent},
     {
         path: "singup", component: UserComponent,
         children:
@@ -23,6 +25,14 @@ export const appRoutes: Routes = [
         children:
             [
                 { path: "", component: SingInComponent }
+            ]
+    },
+    {
+        path: 'adminPanel', component: HomeComponent, canActivate: [HomeGuard], data: { roles: ['admin'] },
+        children:
+            [
+                { path: "", component: AdminComponent }
+
             ]
     },
     {
@@ -42,6 +52,15 @@ export const appRoutes: Routes = [
         , canActivate: [HomeGuard]
 
     },
-    { path: "", redirectTo: "/login", pathMatch: "full" }
+    {
+        path: "friends", component: HomeComponent,
+        children:
+            [
+                { path: "", component: FriendsComponent }
+            ]
+        , canActivate: [HomeGuard]
+
+    },
+    { path: "", redirectTo: "/profile", pathMatch: "full" }
 
 ];

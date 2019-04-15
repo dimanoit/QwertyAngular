@@ -1,11 +1,12 @@
-export class LastMessage{
+export class Message{
      IdSender : string;
      TextMessage : string;
      IdRecipient : string;
+     DateAndTimeMessage : Date;
 }
 
-export class lastSms{
-     message : LastMessage;
+export class Sms{
+     Message : Message;
      Name : string;
      Surname : string;
      ImageUrl : string;

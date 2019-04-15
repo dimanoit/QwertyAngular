@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { UserService } from '../shared/user.service';
 import {ToastrService} from "ngx-toastr"
 import { BrowserAnimationsModule} from "@angular/platform-browser/animations"
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-sing-up',
   templateUrl: './sing-up.component.html',
@@ -39,8 +40,14 @@ export class SingUpComponent implements OnInit {
         this.resetForm(form);
       }
       else this.toastr.error(data.Message);
-    },(error)=>{
-      this.toastr.error(error);
+    },(error: HttpErrorResponse) => {
+      if (error.status === 400) {
+        for (var key in error.error.ModelState)
+          for (var i = 0; i < error.error.ModelState[key].length; i++)
+            this.toastr.error(error.error.ModelState[key][i]);
+      } else {
+        this.toastr.error("Cannot register an user!");
+      }
     });
   }
 }

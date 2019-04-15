@@ -25,7 +25,8 @@ export class SingInComponent implements OnInit {
       {
         localStorage.setItem("userToken",data.access_token);
         localStorage.setItem("UserId",data.Id);
-        this.router.navigate(["/home"]);
+        localStorage.setItem('userRoles',data.roles);
+        this.router.navigate(["/profile"]);
       },
       (error : HttpErrorResponse) => 
       {

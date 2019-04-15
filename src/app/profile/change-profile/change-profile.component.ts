@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import {ToastrService} from "ngx-toastr";
 import {EventEmitter} from "@angular/core";
 import {MaterializeAction} from 'angular2-materialize';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-change-profile',
   templateUrl: './change-profile.component.html',
@@ -20,21 +21,11 @@ export class ChangeProfileComponent implements OnInit {
 
   GetCurrentUser() {
     this.profileService.GetUserProfile().subscribe((data: any) => {
-      this.profile.Name = data.Name;
-      this.profile.Surname = data.Surname;
-      this.profile.AboutUrl = data.AboutUrl;
-      this.profile.Country = data.Country;
-      this.profile.City = data.City;
-      this.profile.Phone = data.Phone;
-      this.profile.Email = data.Email;
-      this.profile.UserId = data.Id;
-      this.profile.UserName = data.UserName;
+      this.profile = data as Profile
     });
   }
 
   OnSubmit(form: NgForm) {
-    alert(form.value.Name);
-    this.modalActions.emit({action:"modal",params:['close']});
     this.profileService.ChangeProfile(form.value).subscribe( (data : any) =>
     {
       if(data.Succedeed == true)
@@ -42,9 +33,18 @@ export class ChangeProfileComponent implements OnInit {
         this.toastr.success("User changed",data.Succedeed);
       }
       else this.toastr.error(data.Message);
-    },(error)=>{
-      this.toastr.error(error[0]);
+    },(error: HttpErrorResponse) => {
+      if (error.status === 400) {
+        for (var key in error.error.ModelState)
+          for (var i = 0; i < error.error.ModelState[key].length; i++)
+            this.toastr.error(error.error.ModelState[key][i]);
+      } else {
+        this.toastr.error(error.error.Message);
+      }
     });
+    this.modalActions.emit({action:"modal",params:['close']});
+    this.GetCurrentUser();
+
   }
 
   ngOnInit() {

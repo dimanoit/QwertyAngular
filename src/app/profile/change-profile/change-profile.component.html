@@ -2,44 +2,44 @@
   <input type="hidden" name="UserName" #UserName = "ngModel"  [(ngModel)]="profile.UserName">
   <div class="row">
     <div class="input-field col s6 ">
-      <input class="validate red lighten-4" type="text" name="Name" #ProfileName="ngModel" [(ngModel)]="profile.Name" required>
-      <label data-error="Required field!">Name</label>
+      <input class="validate" type="text" name="Name" #ProfileName="ngModel" [(ngModel)]="profile.Name" required>
+      <div><label class="active" data-error="Required field!">Name</label></div>
     </div>
     <div class="input-field col s6 ">
-      <input class="validate red lighten-4" type="text" name="Surname" #Surname="ngModel" [(ngModel)]="profile.Surname" required
+      <input class="validate" type="text" name="Surname" #Surname="ngModel" [(ngModel)]="profile.Surname" required
         minlength="3">
-      <label data-error="Required field!">Surname</label>
+     <div><label class="active" data-error="Required field!">Surname</label></div>
     </div>
   </div>
 
   <div class="row">
     <div class="input-field col s6">
-      <input type="text" class="red lighten-4" name="Country" #Country="ngModel" [(ngModel)]="profile.Country">
-      <label>Country</label>
+      <input type="text"  name="Country" #Country="ngModel" [(ngModel)]="profile.Country">
+      <div><label class="active">Country</label></div>
     </div>
     <div class="input-field col s6">
-      <input type="text" class="red lighten-4" name="City" #City="ngModel" [(ngModel)]="profile.City">
-      <label>City</label>
+      <input type="text"  name="City" #City="ngModel" [(ngModel)]="profile.City">
+      <div><label class="active">City</label></div>
     </div>
   </div>
 
 
   <div class="row">
     <div class="input-field col s6 ">
-      <input type="email" class="validate red lighten-4" name="Email" #Email="ngModel" [(ngModel)]="profile.Email">
-      <label>Email</label>
+      <input type="email" class="validate" name="Email" #Email="ngModel" [(ngModel)]="profile.Email">
+      <div><label class="active">Email</label></div>
     </div>
     <div class="input-field col s6">
-        <input type="email" class="validate red lighten-4" name="Phone" #Email="ngModel" [(ngModel)]="profile.Phone">
-        <label>Email</label>
+        <input type="text" class="validate" name="Phone" #Phone="ngModel" [(ngModel)]="profile.Phone">
+        <div><label class="active">Phone</label></div>
       </div>
   </div>
 
   <div class="row">
-    <div class="input-field col s12 red lighten-4">
-      <textarea id="textarea1" class="materialize-textarea" name="About" #About="ngModel"
+    <div class="input-field col s12">
+      <textarea id="textarea1" class="materialize-textarea" name="AboutUrl" #AboutUrl="ngModel"
         [(ngModel)]="profile.AboutUrl"></textarea>
-      <label>About</label>
+      <div><label class="active" for="textarea1">About</label></div>
     </div>
   </div>
 

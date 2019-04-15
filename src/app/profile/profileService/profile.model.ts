@@ -1,5 +1,5 @@
 export class Profile{
-    UserId : string;
+    Id : string;
     UserName : string;
     Name : string;
     Surname : string;

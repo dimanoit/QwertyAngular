@@ -5,6 +5,7 @@ import { UserService } from '../user/shared/user.service';
 import { ProfileService } from './ProfileService/profile.service';
 import { ChangeProfileComponent } from './change-profile/change-profile.component';
 import { MaterializeAction } from 'angular2-materialize';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -20,27 +21,27 @@ export class ProfileComponent implements OnInit {
   uploadPhotoModalActions = new EventEmitter<string | MaterializeAction>();
   fileToUpload: File;
   imageUrl: string;
-  baseImageUrl : string; 
+  baseImageUrl: string;
 
-  constructor(private sanitizer: DomSanitizer, private profileService: ProfileService) {
+  constructor(private sanitizer: DomSanitizer, private profileService: ProfileService,
+    private toastr: ToastrService) {
     this.baseImageUrl = "assets/ProfileImages/";
     this.profile = new Profile();
+    this.GetCurrentUser();
+  }
+
+  GetCurrentUser() {
     this.profileService.GetUserProfile().subscribe((data: any) => {
-      this.profile.Name = data.Name;
-      this.profile.Surname = data.Surname;
-      this.profile.AboutUrl = data.AboutUrl;
-      this.profile.Country = data.Country;
-      this.profile.City = data.City;
-      this.profile.Phone = data.Phone;
-      this.profile.Email = data.Email;
-      this.profile.UserId = data.Id;
+      this.profile = data as Profile;
       this.profile.ImageUrl = data.ImageUrl;
       for (var i = data.ImageUrl.length; ; i--) {
         if (data.ImageUrl[i] == '/') {
-          this.imageUrl = this.baseImageUrl + data.ImageUrl.substr(i+1, data.ImageUrl.length - i);
+          this.imageUrl = this.baseImageUrl + data.ImageUrl.substr(i + 1, data.ImageUrl.length - i);
           break;
         }
       }
+    },(error) =>{
+      this.toastr.error(error.error.Message);
     });
   }
 
@@ -73,7 +74,12 @@ export class ProfileComponent implements OnInit {
   OnSubmit(Image) {
     this.profileService.postFile(this.fileToUpload).subscribe(
       (data: any) => {
-        this.setImageProfile();
+        if (data.Succeded == true) {
+          this.toastr.success("Photo saved");
+          this.setImageProfile();
+        }
+      }, (error) => {
+        this.toastr.error(error.error.Message)
       });
     this.uploadPhotoModalActions.emit({ action: "modal", params: ['close'] });
   }

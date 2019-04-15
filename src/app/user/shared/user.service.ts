@@ -29,6 +29,17 @@ export class UserService {
     var reqHeader = new HttpHeaders({ 'Content-Type': "application/x-www-urlencoded" });
     return this.http.post(this.rootUrl + "Token", data, { headers: reqHeader });
   }
+  roleMatch(allowedRoles : string[]): boolean {
+    var isMatch = false;
+    var userRoles: string[] = JSON.parse(localStorage.getItem('userRoles'));
+    allowedRoles.forEach(element => {
+      if (userRoles.indexOf(element) > -1) {
+        isMatch = true;
+        return false;
+      }
+    });
+    return isMatch;
 
+  }
   
 }
