@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import  {FormsModule,ReactiveFormsModule } from "@angular/forms"
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
 import {ToastrModule} from "ngx-toastr"
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SingUpComponent } from './user/sing-up/sing-up.component';
 import { from } from 'rxjs';
@@ -29,6 +28,8 @@ import { FriendService } from './friends/friendService/friend.service';
 import { AdminComponent } from './admin/admin.component';
 import { AdminService } from './admin/adminService/admin.service';
 import { BlockUserComponent } from './block-user/block-user.component';
+import { UserAccountComponent } from './user-account/user-account.component';
+import { DeletedUSerComponent } from './deleted-user/deleted-user.component';
 
 @NgModule({
   declarations: [
@@ -42,11 +43,12 @@ import { BlockUserComponent } from './block-user/block-user.component';
     MessageComponent,
     FriendsComponent,
     AdminComponent,
-    BlockUserComponent
+    BlockUserComponent,
+    UserAccountComponent,
+    DeletedUSerComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     MaterializeModule,

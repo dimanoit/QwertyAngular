@@ -4,20 +4,24 @@
     <div class="card red darken-1" *ngFor="let item of lastMessages">
       <div class="row">
         <div class="col">
-          <img [src]="sanitize(setImageProfile(item.ImageUrl))" class="circle" style="width:75px;height:75px">
+          <img [src]="sanitize(setImageProfile(item.imageUrl))" class="circle" style="width:75px;height:75px">
         </div>
         <div class="col">
           <div class="containter">
-            <div *ngIf="item.Message.IdSender == UserId; then thenBlock else elseBlock"></div>
+            <div *ngIf="item.message.idSender == UserId; then thenBlock else elseBlock"></div>
             <ng-template #thenBlock>
-              <a class="waves-light btn-small" (click)="GoToAreaMessages(item.Message.IdRecipient)">{{item.Name}}
-                {{item.Surname}}</a>
-              <p class="white-text truncate">You : {{item.Message.TextMessage}}</p>
+              <div>
+                <a class="waves-light btn-small" (click)="GoToAreaMessages(item.message.idRecipient)">{{item.name}}
+                  {{item.surname}}</a>
+              </div>
+              <p class="white-text truncate dialog-width">You : {{item.message.textMessage}}</p>
             </ng-template>
             <ng-template #elseBlock>
-              <a class="waves-light btn-small" (click)="GoToAreaMessages(item.Message.IdSender)">{{item.Name}}
-                {{item.Surname}}</a>
-              <p class="white-text truncate">{{item.Message.TextMessage}}</p>
+              <div>
+                <a class="waves-light btn-small" (click)="GoToAreaMessages(item.message.idSender)">{{item.name}}
+                  {{item.surname}}</a>
+              </div>
+              <p class="white-text truncate dialog-width">{{item.message.textMessage}}</p>
             </ng-template>
           </div>
         </div>
@@ -29,44 +33,50 @@
 
     <!--MESSAGE AREA-->
     <div class="container">
-      <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
-        <div *cdkVirtualFor="let message of DialogMessages" class="example-item">
-          <div *ngIf="message.IdSender == UserId; then thenBlock else elseBlock"></div>
-          <ng-template #thenBlock>
-            <div class="card-panel large teal col s6 offset-s6">
-              <span class="white-text">
-                {{message.TextMessage}}
-              </span>
-            </div>
-          </ng-template>
-          <ng-template #elseBlock>
-            <div class="card-panel orange darken-4 col s6">
-              <span class="white-text">
-                {{message.TextMessage}}
-              </span>
-            </div>
-          </ng-template>
-        </div>
-      </cdk-virtual-scroll-viewport>
+      <div class="row">
+        <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+          <div *cdkVirtualFor="let message of DialogMessages" class="example-item">
+            <div *ngIf="message.idSender == UserId; then thenBlock else elseBlock"></div>
+            <ng-template #thenBlock>
+              <a (click)="selectMessage(message.idMessage)">
+                <div class="col s12" [style.background-color]="message.isSelected==true?'#00DFCB':'white'">
+                  <div class="card-panel large teal col s6 offset-s6">
+                    <span class="white-text">
+                      {{message.textMessage}}
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </ng-template>
+            <ng-template #elseBlock>
+              <div class="card-panel orange darken-4 col s6">
+                <span class="white-text">
+                  {{message.textMessage}}
+                </span>
+              </div>
+            </ng-template>
+          </div>
+        </cdk-virtual-scroll-viewport>
+      </div>
       <!--SEND MESSAGE-->
       <div class="row">
-        <form class="col s11 white" #SendMessage="ngForm" (ngSubmit)="OnSubmit(SendMessage)">
-          <div class="row">
-            <div class="input-field col s8">
-              <input type="text" #Message ngModel name="Message" placeholder="Write your message" required>
-            </div>
-            <div class="col s3">
-              <button [disabled]="!SendMessage.valid" class="btn-small btn-submit" type="submit">
-                Send
-                <i class="material-icons right">send</i>
-              </button>
-            </div>
+        <form class="col s8" #SendMessage="ngForm" (ngSubmit)="OnSubmit(SendMessage)">
+          <div class="input-field col s10">
+            <input type="text" #Message ngModel name="Message" placeholder="Write your message" required>
+          </div>
+          <div class="col s2">
+            <button [disabled]="!SendMessage.valid" class="btn-small btn-submit" type="submit">
+              Send
+              <i class="material-icons right">send</i>
+            </button>
           </div>
         </form>
-        <button class="btn-small col s1" (click)="GoToAreaMessages(CurrentSenderId)">
-          Get new messages
-        </button>
-
+        <div class="col s2">
+          <button class="btn-small" (click) = "GoToAreaMessages(CurrentSenderId)">Get messages</button>
+        </div>
+        <div class="col s2">
+            <button class="btn-small" (click) = "DeleteMessages()">Delete selected</button>
+          </div>
       </div>
     </div>
   </div>

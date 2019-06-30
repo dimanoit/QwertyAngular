@@ -9,7 +9,7 @@ export class AdminService {
   constructor(private http: HttpClient) {
   }
 
-  readonly rootUrlToAdmin = "http://localhost:61981/api/admin";
+  readonly rootUrlToAdmin = "http://localhost:52534/api/admin";
   GetUsers() {
     return this.http.get(this.rootUrlToAdmin,
       { headers: new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken") }) });

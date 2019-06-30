@@ -1,6 +1,6 @@
 export class FriendModel {
-    Name: string;
-    Surname: string;
-    Country: string;
-    City: string;
+    name: string;
+    surname: string;
+    country: string;
+    city: string;
 }

@@ -31,23 +31,16 @@ export class SingUpComponent implements OnInit {
   }
   OnSubmit(form : NgForm)
   {
-    this.userService.registerUser(form.value)
-    .subscribe( (data : any) =>
+    this.userService.registerUser(form.value).subscribe( (data : any) =>
     {
-      if(data.Succedeed == true)
+      if(data.succedeed == true)
       {
-        this.toastr.success("User registration successful",data.Succedeed);
+        this.toastr.success("User registration successful",data.succedeed);
         this.resetForm(form);
-      }
-      else this.toastr.error(data.Message);
-    },(error: HttpErrorResponse) => {
-      if (error.status === 400) {
-        for (var key in error.error.ModelState)
-          for (var i = 0; i < error.error.ModelState[key].length; i++)
-            this.toastr.error(error.error.ModelState[key][i]);
-      } else {
-        this.toastr.error("Cannot register an user!");
-      }
+      } else this.toastr.error(data.message);
+    },(error: HttpErrorResponse) => 
+    {
+      this.toastr.error(error.message);
     });
   }
 }

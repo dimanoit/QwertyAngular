@@ -1,26 +1,26 @@
 <div class="row">
-  <form class="col s3 white" #FindUserForm="ngForm" (ngSubmit)="OnSubmit(FindUserForm)">
+  <form class="col s3 white" #findUserForm="ngForm" (ngSubmit)="OnSubmit(findUserForm)">
     <div class="row">
       <div class="input-field col s10">
-        <input type="text" name="Name" #Name ngModel>
+        <input type="text" name="name" #name ngModel>
         <label class="active">Name</label>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s10">
-        <input type="text" name="Surname" #Surname ngModel>
+        <input type="text" name="surname" #surname ngModel>
         <label class="active">Surname</label>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s10">
-        <input type="text" name="Country" #Country ngModel>
+        <input type="text" name="country" #country ngModel>
         <label class="active">Country</label>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s10">
-        <input type="text" name="City" #City ngModel>
+        <input type="text" name="city" #city ngModel>
         <label class="active">City</label>
       </div>
     </div>
@@ -30,8 +30,8 @@
   </form>
   <div class="col s9">
     <ul class="tabs">
-      <li class="tab col s4"><a class="active" href="#test1">All Users</a></li>
-      <li class="tab col s4"><a href="#test2" (click)="GetFriends()">My Friends</a></li>
+      <li class="tab col s4"><a  href="#test1">All Users</a></li>
+      <li class="tab col s4"><a href="#test2" class="active" (click)="GetFriends()">My Friends</a></li>
       <li class="tab col s4"><a href="#test3" (click)="GetRequest()">Friends Request</a></li>
     </ul>
     <div id="test1" class="col s12">
@@ -41,12 +41,13 @@
             <div class="row">
               <div class="col s2">
                 <div class="container">
-                  <img [src]="sanitize(setImageProfile(item.ImageUrl))" style="width:75px;height:75px">
+                  <img [src]="sanitize(setImageProfile(item.imageUrl))" style="width:75px;height:75px">
                 </div>
               </div>
               <div class="col s10">
-                <p class="white-text">{{item.Name}} {{item.Surname}} </p>
-                <a class="btn" (click)="SendRequset(item.Id)">Add to Friends</a>
+                <p class="white-text"><strong>{{item.name}} {{item.surname}}</strong>
+                  Country : {{item.country}}, City : {{item.city}} </p>
+                <a class="btn" (click)="SendRequset(item.id)">Add to Friends</a>
               </div>
             </div>
           </div>
@@ -60,11 +61,11 @@
                 <div class="row">
                   <div class="col s2">
                     <div class="container">
-                      <img [src]="sanitize(setImageProfile(friend.ImageUrl))" style="width:75px;height:75px">
+                      <img [src]="sanitize(setImageProfile(friend.imageUrl))" style="width:75px;height:75px">
                     </div>
                   </div>
                   <div class="col s10">
-                    <p class="white-text">{{friend.Name}} {{friend.Surname}}</p>
+                    <p class="white-text">{{friend.name}} {{friend.surname}}</p>
                     <a class="btn" routerLink="/messages" routerLinkActive="active">Go to dialog</a>
                   </div>
                 </div>
@@ -79,14 +80,14 @@
             <div class="row">
               <div class="col s2">
                 <div class="container">
-                  <img [src]="sanitize(setImageProfile(profile.ImageUrl))" style="width:75px;height:75px">
+                  <img [src]="sanitize(setImageProfile(profile.imageUrl))" style="width:75px;height:75px">
                 </div>
               </div>
               <div class="col s10">
-                <p class="white-text">{{profile.Name}} {{profile.Surname}}</p>
-                <div *ngIf="profile.Request.SenderUserId != UserId; then thenBlock else elseBlock"></div>
+                <p class="white-text">{{profile.name}} {{profile.surname}}</p>
+                <div *ngIf="profile.request.senderUserId != UserId; then thenBlock else elseBlock"></div>
                 <ng-template #thenBlock>
-                  <a class="btn" (click)="AcceptFriend(profile.Request.SenderUserId,profile.Request.RecipientUserId)">
+                  <a class="btn" (click)="AcceptFriend(profile.request.senderUserId,profile.request.recipientUserId)">
                     Add to friends and say hi</a>
                 </ng-template>
                 <ng-template #elseBlock>

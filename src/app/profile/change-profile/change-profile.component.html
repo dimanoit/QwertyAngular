@@ -1,12 +1,12 @@
 <form class="col s12 white" #changeProfileForm="ngForm" (ngSubmit)="OnSubmit(changeProfileForm)">
-  <input type="hidden" name="UserName" #UserName = "ngModel"  [(ngModel)]="profile.UserName">
+  <input type="hidden" name="UserName" #UserName = "ngModel"  [(ngModel)]="profile.userName">
   <div class="row">
     <div class="input-field col s6 ">
-      <input class="validate" type="text" name="Name" #ProfileName="ngModel" [(ngModel)]="profile.Name" required>
+      <input class="validate" type="text" name="Name" #ProfileName="ngModel" [(ngModel)]="profile.name" required>
       <div><label class="active" data-error="Required field!">Name</label></div>
     </div>
     <div class="input-field col s6 ">
-      <input class="validate" type="text" name="Surname" #Surname="ngModel" [(ngModel)]="profile.Surname" required
+      <input class="validate" type="text" name="Surname" #Surname="ngModel" [(ngModel)]="profile.surname" required
         minlength="3">
      <div><label class="active" data-error="Required field!">Surname</label></div>
     </div>
@@ -14,11 +14,11 @@
 
   <div class="row">
     <div class="input-field col s6">
-      <input type="text"  name="Country" #Country="ngModel" [(ngModel)]="profile.Country">
+      <input type="text"  name="Country" #Country="ngModel" [(ngModel)]="profile.country">
       <div><label class="active">Country</label></div>
     </div>
     <div class="input-field col s6">
-      <input type="text"  name="City" #City="ngModel" [(ngModel)]="profile.City">
+      <input type="text"  name="City" #City="ngModel" [(ngModel)]="profile.city">
       <div><label class="active">City</label></div>
     </div>
   </div>
@@ -26,11 +26,11 @@
 
   <div class="row">
     <div class="input-field col s6 ">
-      <input type="email" class="validate" name="Email" #Email="ngModel" [(ngModel)]="profile.Email">
+      <input type="email" class="validate" name="Email" #Email="ngModel" [(ngModel)]="profile.email">
       <div><label class="active">Email</label></div>
     </div>
     <div class="input-field col s6">
-        <input type="text" class="validate" name="Phone" #Phone="ngModel" [(ngModel)]="profile.Phone">
+        <input type="text" class="validate" name="Phone" #Phone="ngModel" [(ngModel)]="profile.phone">
         <div><label class="active">Phone</label></div>
       </div>
   </div>
@@ -38,7 +38,7 @@
   <div class="row">
     <div class="input-field col s12">
       <textarea id="textarea1" class="materialize-textarea" name="AboutUrl" #AboutUrl="ngModel"
-        [(ngModel)]="profile.AboutUrl"></textarea>
+        [(ngModel)]="profile.aboutUrl"></textarea>
       <div><label class="active" for="textarea1">About</label></div>
     </div>
   </div>

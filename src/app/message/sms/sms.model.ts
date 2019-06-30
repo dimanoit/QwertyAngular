@@ -1,13 +1,15 @@
 export class Message{
-     IdSender : string;
-     TextMessage : string;
-     IdRecipient : string;
-     DateAndTimeMessage : Date;
+     idMessage : number;
+     idSender : string;
+     textMessage : string;
+     idRecipient : string;
+     dateAndTimeMessage : Date;
+     isSelected : boolean;
 }
 
 export class Sms{
-     Message : Message;
-     Name : string;
-     Surname : string;
-     ImageUrl : string;
+     message : Message;
+     name : string;
+     surname : string;
+     imageUrl : string;
 }

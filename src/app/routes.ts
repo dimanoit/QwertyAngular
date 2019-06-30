@@ -9,10 +9,13 @@ import { MessageComponent } from './message/message.component';
 import { FriendsComponent } from './friends/friends.component';
 import { AdminComponent } from './admin/admin.component';
 import { BlockUserComponent } from './block-user/block-user.component';
+import { UserAccountComponent } from './user-account/user-account.component';
+import { DeletedUSerComponent } from './deleted-user/deleted-user.component';
 
 export const appRoutes: Routes = [
     { path: "home", component: HomeComponent, canActivate: [HomeGuard] },
     { path: "blocked", component: BlockUserComponent},
+    { path: "deleted", component: DeletedUSerComponent},
     {
         path: "singup", component: UserComponent,
         children:
@@ -42,7 +45,13 @@ export const appRoutes: Routes = [
                 { path: "", component: MessageComponent }
             ]
     },
-
+    {
+        path: "userAccount", component: HomeComponent,
+        children:
+            [
+                { path: "", component: UserAccountComponent }
+            ]
+    },
     {
         path: "profile", component: HomeComponent,
         children:
@@ -62,5 +71,5 @@ export const appRoutes: Routes = [
 
     },
     { path: "", redirectTo: "/profile", pathMatch: "full" }
-
+    
 ];

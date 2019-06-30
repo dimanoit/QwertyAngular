@@ -4,6 +4,7 @@ import { Sms, Message } from 'src/app/message/sms/sms.model';
 import { SmsService } from 'src/app/message/sms/sms.service';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -11,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class MessageComponent implements OnInit {
 
+  ClassName: string;
   lastMessages: Sms[];
   DialogMessages: Message[];
   UserId: string;
@@ -56,16 +58,16 @@ export class MessageComponent implements OnInit {
           this.CurrentSenderId = SenderId
         }
       }, (error) => {
-        this.toastr.error(error.error.Message);
+        this.toastr.error(error.error.message);
       });
     }
   }
 
   OnSubmit(form: NgForm) {
     var message = new Message();
-    message.TextMessage = form.value.Message;
-    message.IdRecipient = this.CurrentSenderId;
-    message.IdSender = this.UserId;
+    message.textMessage = form.value.Message;
+    message.idRecipient = this.CurrentSenderId;
+    message.idSender = this.UserId;
     this.SmsService.SendMessage(message).subscribe(
       (data: any) => {
         this.GoToAreaMessages(this.CurrentSenderId);
@@ -73,12 +75,61 @@ export class MessageComponent implements OnInit {
         this.toastr.success("Sent");
         form.reset();
       }, (error) => {
-        this.toastr.error(error.error.Message)
+        this.toastr.error(error.error.message)
       });
   }
 
   ngOnInit() {
+
   }
 
+  selectMessage(IdMessage: number) {
+    //We use binary search, because the array of messages is ordered
+    var middleId = 0;
+    var indexLastElement = this.DialogMessages.length - 1;
+    var indexFirstElement = 0;
+    var count = 0;
+    while (true) {
+      middleId = Math.round((indexFirstElement + indexLastElement) / 2);
+
+      if (IdMessage < this.DialogMessages[middleId].idMessage) {
+        indexLastElement = middleId - 1;
+      } else if (IdMessage > this.DialogMessages[middleId].idMessage) {
+        indexFirstElement = middleId + 1;
+      }
+      else {
+        this.DialogMessages[middleId].isSelected = !this.DialogMessages[middleId].isSelected;
+        break;
+      }
+
+      if (indexFirstElement > indexLastElement)
+      {
+        alert("Non found");
+        return;
+      }
+      count++;
+    }
+  }
+
+  DeleteMessages(){
+    for(var i = 0; i < this.DialogMessages.length; i++)
+    {
+      if(this.DialogMessages[i].isSelected == true)
+      {
+        this.SmsService.DeleteMessage(this.DialogMessages[i].idMessage).subscribe(
+          (data: string) => 
+          {
+            this.toastr.success("Message has been deleted.");
+          },
+           (error:HttpErrorResponse) => 
+          {
+            this.toastr.error(error.message);
+          });
+      }
+    }
+    this.GoToAreaMessages(this.CurrentSenderId);
+  }
+  
 }
+
 

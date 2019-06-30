@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 
 import { User } from './user.model';
 import "rxjs"
+import { LoginModel } from './loginModel.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  readonly rootUrl = "http://localhost:61981/";
+  readonly rootUrl = "http://localhost:52534/";
 
   constructor(private http: HttpClient) {
 
@@ -21,17 +22,18 @@ export class UserService {
       Password: user.Password,
       Surname: user.Surname
     };
-    return this.http.post(this.rootUrl + "api/Account/Register", body);
+    return this.http.post(this.rootUrl + "api/account/register", body);
   }
 
   userAuthentication(Username, Password) {
-    var data = "grant_type=password&username=" + Username + "&password=" + Password;
-    var reqHeader = new HttpHeaders({ 'Content-Type': "application/x-www-urlencoded" });
-    return this.http.post(this.rootUrl + "Token", data, { headers: reqHeader });
+    let data = new LoginModel();
+    data.password = Password;
+    data.username = Username;
+    return this.http.post(this.rootUrl + "api/authorization/token", data);
   }
   roleMatch(allowedRoles : string[]): boolean {
     var isMatch = false;
-    var userRoles: string[] = JSON.parse(localStorage.getItem('userRoles'));
+    var userRoles: string[] = localStorage.getItem('userRoles').split(','); // JSON.parse previouse
     allowedRoles.forEach(element => {
       if (userRoles.indexOf(element) > -1) {
         isMatch = true;
@@ -39,7 +41,5 @@ export class UserService {
       }
     });
     return isMatch;
-
   }
-  
 }

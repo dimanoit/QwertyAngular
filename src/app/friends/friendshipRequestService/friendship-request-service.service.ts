@@ -6,7 +6,7 @@ import { FriendshipRequestStatus } from './friendshipRequest.model';
   providedIn: 'root'
 })
 export class FriendshipRequestServiceService {
-  readonly rootUrl = "http://localhost:61981/api/friendshipRequest/";
+  readonly rootUrl = "http://localhost:52534/api/friendshipRequest/";
 
   constructor(private http: HttpClient) { 
   }

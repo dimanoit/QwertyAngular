@@ -1,13 +1,12 @@
 export class Profile{
-    Id : string;
-    UserName : string;
-    Name : string;
-    Surname : string;
-    Phone : string;
-    ImageUrl : string;
-    AboutUrl : string;
-    Country : string;
-    City : string;
-    Email : string;
-
+    id : string;
+    userName : string;
+    name : string;
+    surname : string;
+    phone : string;
+    imageUrl : string;
+    aboutUrl : string;
+    country : string;
+    city : string;
+    email : string;
 }

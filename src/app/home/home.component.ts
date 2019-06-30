@@ -19,7 +19,9 @@ export class HomeComponent implements OnInit {
   }
   
   ngOnInit() {
-    this.CurrentUserRoles =  JSON.parse(localStorage.getItem('userRoles'));
+    let roles = localStorage.getItem('userRoles');
+    if(roles != null || roles != "")
+    this.CurrentUserRoles = localStorage.getItem('userRoles').split(',');
     if(this.CurrentUserRoles[0] == "blocked"){
     this.router.navigate(['/blocked']);
     }

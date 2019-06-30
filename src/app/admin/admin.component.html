@@ -3,17 +3,17 @@
       <div class="row">
         <div class="col s2">
           <div class="container">
-            <img [src]="sanitize(setImageProfile(item.ImageUrl))" style="width:75px;height:75px">
+            <img [src]="sanitize(setImageProfile(item.imageUrl))" style="width:75px;height:75px">
           </div>
         </div>
         <div class="col s10">
-          <p class="white-text">{{item.Name}} {{item.Surname}}  {{item.Roles[0]}}</p>
-          <div *ngIf="item.Roles[0] == 'blocked'; then thenBlock else elseBlock"></div>
+          <p class="white-text">{{item.name}} {{item.surname}}  {{item.roles[0]}}</p>
+          <div *ngIf="item.roles[0] == 'blocked'; then thenBlock else elseBlock"></div>
             <ng-template #thenBlock>
-              <a class="waves-light btn-small" (click)="Unblock(item.Id)">Unblock</a>
+              <a class="waves-light btn-small" (click)="Unblock(item.id)">Unblock</a>
             </ng-template>
             <ng-template #elseBlock>
-              <a class="waves-light btn-small" (click)="Block(item.Id)">Block</a>
+              <a class="waves-light btn-small" (click)="Block(item.id)">Block</a>
             </ng-template>
         </div>
       </div>

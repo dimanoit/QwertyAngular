@@ -6,8 +6,8 @@ import { FriendModel } from './friend.model';
   providedIn: 'root'
 })
 export class FriendService {
-  readonly rootUrlToAccount = "http://localhost:61981/api/Account/";
-  readonly rootUrlToFriends = "http://localhost:61981/api/Friends/";
+  readonly rootUrlToAccount = "http://localhost:52534/api/account/";
+  readonly rootUrlToFriends = "http://localhost:52534/api/friends/";
 
 
   constructor(private http: HttpClient) {
@@ -15,9 +15,9 @@ export class FriendService {
 
   GetUsers(friendModel: FriendModel) {
     var requestStrign = "?name=&surname=&country=&city=";
-    if (friendModel != null) {
-      requestStrign = "?name=" + friendModel.Name + "&surname=" + friendModel.Surname
-        + "&country=" + friendModel.Country + "&city=" + friendModel.City;
+    if (friendModel != null) 
+    {
+      requestStrign = "?name=" + friendModel.name + "&surname=" + friendModel.surname + "&country=" + friendModel.country + "&city=" + friendModel.city;
     }
     return this.http.get(this.rootUrlToAccount + requestStrign,
       { headers: new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken") }) });

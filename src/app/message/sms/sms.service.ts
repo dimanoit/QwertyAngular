@@ -8,7 +8,7 @@ export class SmsService {
 
   constructor(private http: HttpClient) { }
 
-  readonly rootUrl = "http://localhost:61981/api/messages/";
+  readonly rootUrl = "http://localhost:52534/api/messages/";
 
   GetLastMessages() {
     let request =this.rootUrl+localStorage.getItem("UserId") + "/dialogs";  
@@ -33,4 +33,9 @@ export class SmsService {
     }
   }
 
+  DeleteMessage(messageId : Number){
+    return this.http.delete(this.rootUrl + messageId,
+      { headers: new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken") }) });
+      
+  }
 }

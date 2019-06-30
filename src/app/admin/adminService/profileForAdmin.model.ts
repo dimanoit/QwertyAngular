@@ -1,7 +1,7 @@
 export class ProfileForAdmins{
-    Id : string;
-    Name : string;
-    Surname : string;
-    Email : string;
-    Roles : string[];
+    id : string;
+    name : string;
+    surname : string;
+    email : string;
+    roles : string[];
 }

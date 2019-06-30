@@ -4,6 +4,7 @@ import { AdminService } from './adminService/admin.service';
 import { Profile } from '../profile/ProfileService/profile.model';
 import { ProfileForAdmins } from './adminService/profileForAdmin.model';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin',
@@ -23,6 +24,7 @@ export class AdminComponent implements OnInit {
   {
     this.adminService.GetUsers().subscribe((data)=>{
       this.CurrentUsers = data as ProfileForAdmins[];
+      console.log(this.CurrentUsers);
     });
   }
 
@@ -31,25 +33,25 @@ export class AdminComponent implements OnInit {
   }
   Block(UserId : string){
     this.adminService.BlockUser(UserId).subscribe((data: any) => {
-      if (data.Succedeed == true) {
+      if (data.succedeed == true) {
         this.toastr.success("Blocked");
         this.GetUsers();
       }
-      else this.toastr.error(data.Message);
-    }, (error) => {
-      this.toastr.error(error.error.Message);
+      else this.toastr.error(data.message);
+    }, (error:HttpErrorResponse) => {
+      this.toastr.error(error.message);
     })
   }
 
   Unblock(UserId : string){
     this.adminService.UnblockUser(UserId).subscribe((data: any) => {
-      if (data.Succedeed == true) {
+      if (data.succedeed == true) {
         this.toastr.success("Unblocked");
         this.GetUsers();
       }
-      else this.toastr.error(data.Message);
-    }, (error) => {
-      this.toastr.error(error.error.Message);
+      else this.toastr.error(data.message);
+    }, (error:HttpErrorResponse) => {
+      this.toastr.error(error.message);
     })
   }
   //#region SetImage

@@ -6,6 +6,7 @@ import { ProfileService } from './ProfileService/profile.service';
 import { ChangeProfileComponent } from './change-profile/change-profile.component';
 import { MaterializeAction } from 'angular2-materialize';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -23,25 +24,33 @@ export class ProfileComponent implements OnInit {
   imageUrl: string;
   baseImageUrl: string;
 
-  constructor(private sanitizer: DomSanitizer, private profileService: ProfileService,
+  constructor(
+    private sanitizer: DomSanitizer,
+    private profileService: ProfileService,
     private toastr: ToastrService) {
     this.baseImageUrl = "assets/ProfileImages/";
     this.profile = new Profile();
     this.GetCurrentUser();
   }
 
-  GetCurrentUser() {
-    this.profileService.GetUserProfile().subscribe((data: any) => {
-      this.profile = data as Profile;
-      this.profile.ImageUrl = data.ImageUrl;
-      for (var i = data.ImageUrl.length; ; i--) {
-        if (data.ImageUrl[i] == '/') {
-          this.imageUrl = this.baseImageUrl + data.ImageUrl.substr(i + 1, data.ImageUrl.length - i);
-          break;
+  GetCurrentUser() 
+  {
+    this.profileService.GetUserProfile().subscribe(
+      (data: any) =>
+      {
+        this.profile = this.ConvertDataFromJsonToProfile(data);
+        for (var i = data.imageUrl.length; ; i--) 
+        {
+         if (data.imageUrl[i] == "/") 
+          {
+            this.imageUrl = this.baseImageUrl + data.imageUrl.substr(i + 1, data.imageUrl.length - i);
+            break;
+          }
         }
-      }
-    },(error) =>{
-      this.toastr.error(error.error.Message);
+    },
+    (error:HttpErrorResponse) =>
+    {
+      this.toastr.error(error.message);
     });
   }
 
@@ -90,4 +99,19 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  private ConvertDataFromJsonToProfile(jsonObject: any): Profile {
+    let profile = new Profile();
+    profile.aboutUrl = jsonObject.aboutUrl;
+    profile.city = jsonObject.city;
+    profile.country = jsonObject.country;
+    profile.email = jsonObject.email;
+    profile.id = jsonObject.id;
+    profile.name = jsonObject.name;
+    profile.surname = jsonObject.surname;
+    profile.userName = jsonObject.userName;
+    profile.phone = jsonObject.phone;
+    return profile;
+  }
+
 }

@@ -1,21 +1,21 @@
 export class FriendshipRequestStatus {
-    Status: Status;
-    TimeSent: Date;
-    SenderUserId: string;
-    RecipientUserId: string;
+    status: Status;
+    timeSent: Date;
+    senderUserId: string;
+    recipientUserId: string;
 }
 
 export class RequestProfile{
-    Request : FriendshipRequestStatus;
-    Name : string;
-    Surname : string;
-    ImageUrl : string;
+    request : FriendshipRequestStatus;
+    name : string;
+    surname : string;
+    imageUrl : string;
 
 }
 
 enum Status {
-    NotSent,
-    Rejected,
-    Accepted,
-    Sent,
+    notSent,
+    rejected,
+    accepted,
+    sent,
 };

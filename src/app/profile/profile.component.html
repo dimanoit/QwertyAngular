@@ -20,7 +20,7 @@
       <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files)">
       <button type="submit" class="btn-large btn-submit"
         [disabled]="Image.value=='' || !imageForm.valid">Submit</button>
-      <a class="modal-close btn" >Close   </a>
+      <a class="modal-close btn">Close </a>
     </form>
   </div>
 </div>
@@ -32,13 +32,13 @@
         <div class="col">
           <div class="card">
             <div class="card-image">
-              <img [src]="sanitize(setImageProfile())" >
+              <img [src]="sanitize(setImageProfile())">
               <a class="btn-floating halfway-fab waves-effect waves-light red textCenter"
                 (click)="UploadPhoto()">Edit</a>
             </div>
             <div class="card-content">
               <p>
-                {{profile.AboutUrl}}
+                {{profile.aboutUrl}}
               </p>
             </div>
           </div>
@@ -51,32 +51,32 @@
           <thead>
             <tr>
               <th>Name</th>
-              <th>{{profile.Name}}</th>
+              <th>{{profile.name}}</th>
             </tr>
           </thead>
           <thead>
             <tr>
               <th>Surname</th>
-              <th>{{profile.Surname}}</th>
+              <th>{{profile.surname}}</th>
             </tr>
           </thead>
 
           <tbody>
             <tr>
               <td>Email</td>
-              <td>{{profile.Email}}</td>
+              <td>{{profile.email}}</td>
             </tr>
             <tr>
               <td>Phone</td>
-              <td>{{profile.Phone}}</td>
+              <td>{{profile.phone}}</td>
             </tr>
             <tr>
               <td>City</td>
-              <td>{{profile.City}}</td>
+              <td>{{profile.city}}</td>
             </tr>
             <tr>
               <td>Country</td>
-              <td>{{profile.Country}}</td>
+              <td>{{profile.country}}</td>
             </tr>
           </tbody>
         </table>

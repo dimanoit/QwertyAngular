@@ -20,17 +20,21 @@ export class FriendsComponent implements OnInit {
   UserId: string;
   baseImageUrl: string;
 
-  constructor(private sanitizer: DomSanitizer, private friendService: FriendService,
-    private friendshipRequestServiceService: FriendshipRequestServiceService, private toastr: ToastrService) {
+  constructor(
+    private sanitizer: DomSanitizer,
+     private friendService: FriendService,
+    private friendshipRequestServiceService: FriendshipRequestServiceService,
+     private toastr: ToastrService) 
+     {
     this.baseImageUrl = "assets/ProfileImages/";
-  }
+     }
 
   ngOnInit() {
     this.friendService.GetUsers(null).subscribe((data) => {
       this.CurrentUsers = data as Profile[];
     });
     this.UserId = localStorage.getItem("UserId");
-
+    this.GetFriends();
   }
   
   GetRequest() {
@@ -50,25 +54,25 @@ export class FriendsComponent implements OnInit {
 
   SendRequset(RecipientUserId: string) {
     var friendRequestModel = new FriendshipRequestStatus();
-    friendRequestModel.RecipientUserId = RecipientUserId;
-    friendRequestModel.SenderUserId = this.UserId;
+    friendRequestModel.recipientUserId = RecipientUserId;
+    friendRequestModel.senderUserId = this.UserId;
     this.friendshipRequestServiceService.SendRequests(friendRequestModel).subscribe((result: any) => {
-      if (result.Succedeed == true) {
-        this.toastr.success("Sended", result.Succedeed);
+      if (result.succedeed == true) {
+        this.toastr.success("Sended", result.succedeed);
       }
-      else this.toastr.error(result.Message);
+      else this.toastr.error(result.message);
     }, (error) => {
-      this.toastr.error(error.error.Message);
+      this.toastr.error(error.error.message);
     });
 
   }
 
   AcceptFriend(SenderId: string, RecipientId: string) {
     this.friendService.AddFriend(SenderId, RecipientId).subscribe((data: any) => {
-      if (data.Succedeed == true) {
+      if (data.succedeed == true) {
         this.toastr.success("User accepted and message sent");
       }
-      else this.toastr.error(data.Message);
+      else this.toastr.error(data.message);
     }, (error) => {
       this.toastr.error(error.error.Message);
     });
