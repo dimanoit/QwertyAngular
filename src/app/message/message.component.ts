@@ -5,6 +5,7 @@ import { SmsService } from 'src/app/message/sms/sms.service';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SignalRService } from './services/signal-r.service';
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -19,10 +20,15 @@ export class MessageComponent implements OnInit {
   CurrentSenderId: string;
   baseImageUrl: string;
 
-  constructor(private sanitizer: DomSanitizer,
-    private SmsService: SmsService, private toastr: ToastrService) {
+  constructor(
+    private sanitizer: DomSanitizer,
+    private signalRService: SignalRService,
+    private SmsService: SmsService,
+    private toastr: ToastrService) {
     this.UserId = localStorage.getItem("UserId");
     this.baseImageUrl = "assets/ProfileImages/";
+    this.signalRService.startConnection();
+    this.signalRService.addSendMessageListener();
     this.LastMessages();
   }
 
